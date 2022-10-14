@@ -1,7 +1,7 @@
 {
-  "name": "openrct2-typescript-mod-template",
+  "name": "OpenRCT2.RideRequirements",
   "version": "1.0.0",
-  "description": "",
+  "description": "In game ride stat requirements spreadsheet",
   "main": "",
   "scripts": {
     "start": "npm run build:watch",
@@ -15,20 +15,19 @@
     "test:watch": "gulp testWatch",
     "lint": "gulp lint",
     "lint:fix": "gulp lintFix",
-    "init": "gulp init",
     "help": "gulp --tasks",
     "husky:prepare": "husky install"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wisnia74/openrct2-typescript-mod-template.git"
+    "url": "git+https://github.com/jacknull1991/OpenRCT2.RideRequirements.git"
   },
-  "author": "wisnia74",
+  "author": "jacknull",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wisnia74/openrct2-typescript-mod-template/issues"
+    "url": "https://github.com/jacknull1991/OpenRCT2.RideRequirements/issues"
   },
-  "homepage": "https://github.com/wisnia74/openrct2-typescript-mod-template#readme",
+  "homepage": "https://github.com/jacknull1991/OpenRCT2.RideRequirements#readme",
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-typescript": "^8.3.2",
@@ -56,8 +55,8 @@
     "rollup-plugin-inject-process-env": "^1.3.1",
     "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^28.0.3",
-    "ts-node": "^10.8.1",
+    "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.0.0",
-    "typescript": "^4.7.3"
+    "typescript": "^4.8.4"
   }
 }

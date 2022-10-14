@@ -1,18 +1,22 @@
-import { getHandymen, getMechanics, getSecurity, getEntertainers } from './utils';
+import { RRWindow } from "./rrwindow"
+import reqsJson from "./reqs.json";
+
+const initializeUI = (): void => {
+  if (typeof ui === 'undefined') {
+    return;
+  }
+
+  // get data
+  // const rides: RideObject[] = context.getAllObjects("ride");
+  
+  ui.registerMenuItem("Ride Requirements", () => {
+    let reqWindow = new RRWindow("reqs", "Ride Stat Requirements", reqsJson);
+    reqWindow.open();
+  });
+}
 
 const main = (): void => {
-  console.log(`Hello stranger! Your plug-in has started!`);
-
-  console.log(
-    `In your park, there are currently ${map.getAllEntities('guest').length + map.getAllEntities('staff').length} peeps`
-  );
-  console.log(`${map.getAllEntities('staff').length} of them is your staff.`);
-
-  console.log('Your staff consists of:');
-  console.log(`- ${getHandymen().length} handymen`);
-  console.log(`- ${getMechanics().length} mechanics`);
-  console.log(`- ${getSecurity().length} security`);
-  console.log(`- ${getEntertainers().length} entertainers`);
+  initializeUI();
 };
 
 export default main;
