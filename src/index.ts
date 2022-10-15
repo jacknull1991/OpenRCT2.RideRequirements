@@ -3,7 +3,7 @@ import main from './main';
 
 registerPlugin({
   name: config.getString('MOD_NAME'),
-  version: '1.0',
+  version: '1.0.1',
   authors: [config.getString('MOD_AUTHOR')],
   type: 'local',
   licence: 'MIT',
