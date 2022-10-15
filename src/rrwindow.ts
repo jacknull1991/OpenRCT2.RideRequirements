@@ -136,7 +136,7 @@ export class RRWindow {
           // negative G
           let negGW = this._handle.findWidget<LabelWidget>("negG");
           if (ride.max_negative_g) {
-            negGW.text = `Max. negative Gs: ${Number.parseFloat(ride.max_negative_g)}g`;
+            negGW.text = `Max. negative Gs: ${Number.parseFloat(ride.max_negative_g).toFixed(2)}g`;
             if (ride.max_negative_g.match(/\*$/)) {
               negGW.text += '*';
             }
@@ -146,7 +146,7 @@ export class RRWindow {
           // lateral G
           let latGW = this._handle.findWidget<LabelWidget>("latG");
           if (ride.max_lateral_g) {
-            latGW.text = `Max. lateral Gs: ${Number.parseFloat(ride.max_lateral_g)}g`;
+            latGW.text = `Max. lateral Gs: ${Number.parseFloat(ride.max_lateral_g).toFixed(2)}g`;
             if (ride.max_lateral_g.match(/\*$/)) {
               latGW.text += '*';
             }
