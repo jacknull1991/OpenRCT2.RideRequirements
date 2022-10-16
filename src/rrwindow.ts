@@ -56,31 +56,56 @@ export class RRWindow {
   _getWidgets(): WidgetBase[] {
     const widgets: WidgetBase[] = [];
 
-    // filter checkbox
-    const checkboxW: CheckboxWidget = {
-      type:'checkbox',
-      name:'filterCheck',
-      text:'Show available rides only',
+    // filter checkbox - Do not have API yet
+    // const checkboxW: CheckboxWidget = {
+    //   type:'checkbox',
+    //   name:'filterCheck',
+    //   text:'Show available rides only',
+    //   x:10,
+    //   y:20,
+    //   width:180,
+    //   height:10,
+    //   isChecked: false,
+    //   onChange: (isChecked) => {
+    //     if (this._handle) {
+    //       const list = this._handle.findWidget<ListViewWidget>("rideList");
+    //       if (isChecked) {
+    //         this._filterRides();
+    //         list.items = this._filteredList.map(r => r.name);
+    //       } else {
+    //         this._filteredList = this._reqList;
+    //         list.items = this._filteredList.map(r => r.name);
+    //       }
+    //     }
+    //   }
+    // }
+    // search box
+    const textboxLabelW: LabelWidget = {
+      type:'label',
+      text:'Search: ',
+      name:'searchBoxLabel',
       x:10,
       y:20,
-      width:180,
       height:10,
-      isChecked: false,
-      onChange: (isChecked) => {
+      width:50
+    };
+    const textboxW: TextBoxWidget = {
+      type:'textbox',
+      name:'searchBox',
+      x:60,
+      y:20,
+      height:10,
+      width:180,
+      onChange:(text) => {
         if (this._handle) {
+          this._filterRidesBySearch(text);
           const list = this._handle.findWidget<ListViewWidget>("rideList");
-          if (isChecked) {
-            this._filterRides();
-            list.items = this._filteredList.map(r => r.name);
-          } else {
-            this._filteredList = this._reqList;
-            list.items = this._filteredList.map(r => r.name);
-          }
+          list.items = this._filteredList.map(r => r.name);
         }
       }
     }
 
-    let y = 45;
+    let y = 55;
     const heightW= this._createLabelWidget(y, "Highest drop height: ", "height");
     const dropW = this._createLabelWidget(y+=12, "Drops: ", "drop");
     const speedW = this._createLabelWidget(y+=12, "Max. speed: ", "speed");
@@ -95,17 +120,17 @@ export class RRWindow {
       name:'details',
       text:'Requirements Details',
       x:200,
-      y:30,
+      y:35,
       width:180,
-      height:this._height-40
+      height:this._height-45
     };
     const listViewW: ListViewWidget = {
       type: 'listview',
       name: "rideList",
       x: 10,
-      y: 30,
+      y: 35,
       width: 180,
-      height: this._height - 40,
+      height: this._height - 45,
       scrollbars: 'vertical',
       showColumnHeaders: true,
       canSelect: true,
@@ -194,7 +219,9 @@ export class RRWindow {
       }
     };
 
-    widgets.push(checkboxW);
+    // widgets.push(checkboxW);
+    widgets.push(textboxLabelW);
+    widgets.push(textboxW);
     widgets.push(listViewW);
     widgets.push(groupboxW);
     widgets.push(heightW);
@@ -220,19 +247,33 @@ export class RRWindow {
     }
   }
 
-  _filterRides() {
-    const typeList: number[] = [];
-    this._availableRides.forEach(ride => {
-      typeList.push(ride.rideType[0])
-    });
-    this._filteredList = [];
-    this._reqList.forEach((ride) => {
-      if (typeList.indexOf(Number.parseInt(ride.ride_type)) !== -1) {
-        this._filteredList.push(ride);
-      }
-    });
-  }
+  // _filterRides() {
+  //   const typeList: number[] = [];
+  //   this._availableRides.forEach(ride => {
+  //     typeList.push(ride.rideType[0])
+  //   });
+  //   this._filteredList = [];
+  //   this._reqList.forEach((ride) => {
+  //     if (typeList.indexOf(Number.parseInt(ride.ride_type)) !== -1) {
+  //       this._filteredList.push(ride);
+  //     }
+  //   });
+  // }
 
+  _filterRidesBySearch(text: string) {
+    if (text === undefined || text === null || text === "") {
+      this._filteredList = this._reqList;
+    } else {
+      const matchedList: RideRequirement[] = [];
+      this._reqList.forEach(ride => {
+        if (ride.name.toLocaleLowerCase().includes(text)) {
+          matchedList.push(ride);
+        }
+      })
+  
+      this._filteredList = matchedList;
+    }
+  }
 }
 
 function parseJson(json: object): RideRequirement[] {
